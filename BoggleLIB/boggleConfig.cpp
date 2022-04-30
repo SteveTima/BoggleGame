@@ -30,25 +30,25 @@ bool fillDictionary(string pathFileName, map<char, vector<string>>& listOfValidW
 
 	if (wordFile)
 	{
-		string line;
-		while (getline(wordFile, line))
+		string word;
+		while (getline(wordFile, word))
 		{
-			toLowerCase(line);
-			map<char, vector<string>>::iterator keyFound = listOfValidWords.find(line.at(0));
+			toLowerCase(word);
+			map<char, vector<string>>::iterator keyFound = listOfValidWords.find(word.at(0));
 			if (keyFound != listOfValidWords.end())
 			{
-				(keyFound->second).push_back(line);
+				(keyFound->second).push_back(word);
 			}
 			else
 			{
-				// Warning: word starts with invalid character && le dict n a pas ts les caracteres
+				// TODO: Warning: The string value 'word' will not be saved in the game dictonary.
 			}
 		}
 		return true;
 	}
 	else
 	{
-		// TODO: ERROR Failed to open file
+		// TODO: ERROR: Failed to open file
 		return false;
 	}
 }
@@ -56,7 +56,7 @@ bool fillDictionary(string pathFileName, map<char, vector<string>>& listOfValidW
 /***************************************************************************************************/
 void toLowerCase(std::string& value)
 {
-	//TODO: qu est ce qui se passe si il y a un caractere non autorisé???
+	//TODO: ERROR: What if the value contains invalid characters such as '?', '%', '&' etc...
 	int const strLen = (int) value.length();
 	for (int i = 0; i < strLen; i++)
 	{
