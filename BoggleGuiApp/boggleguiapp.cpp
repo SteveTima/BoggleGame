@@ -25,10 +25,10 @@ void BoggleGuiApp::initGame()
 		return;
 	}
 
-	// gui-interface
+	// init gui-interface
 	initGameInterface();
 
-	// class interface
+	// init class interface
 	m_is_playing = false;
 	m_current_player = nullptr;
 	m_nbrOfPlayer = 0;
@@ -286,18 +286,18 @@ void BoggleGuiApp::selectNextStep()
 
 void BoggleGuiApp::resetGame()
 {
+	// reset gui-interface
 	ui.NbrOfPlayer->clear();
 	ui.defaultGameTime->clear();
 	ui.listOfPlayer->clear();
-
 	ui.NbrOfPlayer->setEnabled(false);
 	ui.defaultGameTime->setEnabled(false);
 	ui.listOfPlayer->setEnabled(false);
 	ui.currentPlayer->setEnabled(false);
 	ui.gameChrono->setEnabled(false);
 
+	// reset class-interface
 	m_nbrOfPlayer = 0;
-	m_game_time = 0;
 	m_gamePlayers.clear();
 	bool m_is_playing = false;
 	m_current_player = nullptr;
