@@ -44,6 +44,8 @@ void BoggleGuiApp::initGameInterface()
 	ui.actionGame_time->setEnabled(true);
 	ui.actionNew_game->setEnabled(true);
 
+	ui.defaultGameTime->setText(QString::number(DEFAULT_GAME_TIME));
+
 	//disabled
 	ui.centralWidget->setEnabled(false);
 	ui.defaultGameTime->setEnabled(false);
