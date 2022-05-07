@@ -19,7 +19,7 @@ BoggleDialog::BoggleDialog(QString const& dialogTitle, QString const& text, QWid
 	layoutPrincipal->addWidget(dialogButton);
 
 	// config dialog window
-	resize(350, 450);
+	resize(450, 500);
 	setLayout(layoutPrincipal);
 	setWindowTitle(dialogTitle);
 

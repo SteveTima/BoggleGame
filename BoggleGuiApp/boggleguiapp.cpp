@@ -522,9 +522,9 @@ QString BoggleGuiApp::generateTextDictionary()
 
 QString BoggleGuiApp::generateTextHelp()
 {
-	QString helpText = "W E L C O M E   T O  T H E  G A M E ** B O G G L E **\n\n \
-		The Help is comming soon \n \
-		...\n";
+	QString helpText = "W E L C O M E   T O  T H E  G A M E ** B O G G L E **\n\n";
+	helpText += "The Help is comming soon\n";
+	helpText += "...\n";
 	return helpText;
 }
 
