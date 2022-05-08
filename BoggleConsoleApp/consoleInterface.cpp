@@ -12,11 +12,12 @@
 using namespace std;
 
 
-static int GAME_TIME = 10; // in seconds
+static int playingTimeInMinutes = 2;
 
 static void runTimer(bool* timerOff);
 static void addNewEmptyLine(void);
 static void displayGameHelp(void);
+static void updateGameTime(void);
 
 /***************************************************************************************************/
 void displayGameHeader(void)
@@ -31,12 +32,12 @@ int getNbrOfPlayer(void)
 {
 	addNewEmptyLine();
 	string strValue;
-	int nbrOfPlayer = 0;
+	int m_nbrOfPlayer = 0;
 	cout << "\t" << "Enter the number of player of the game..." << endl;
 	cout << "\t" << ">>";
 	getline(cin, strValue);
-	nbrOfPlayer = stoi(strValue);
-	return nbrOfPlayer;
+	m_nbrOfPlayer = stoi(strValue);
+	return m_nbrOfPlayer;
 }
 
 /***************************************************************************************************/
@@ -64,13 +65,13 @@ void displayGameHelp(void)
 	cout << "\t" << "\t" << "4-1) e.g. those horizontally, vertically, and diagonally neighbouring the current one." << endl;
 	cout << "\t" << "\t" << "5- The full game rules: https://en.wikipedia.org/wiki/Boggle#Rules." << endl;
 	cout << "\t" << "=== Game Instructions ===" << endl;
-	cout << "\t" << "\t" << "1- Enter a word by giving the number placed before each character." << endl;
+	cout << "\t" << "\t" << "1- Enter a character by giving the number placed before each character." << endl;
 	cout << "\t" << "\t" << "2- All number shall be separated by a blanc space." << endl;
-	cout << "\t" << "\t" << "3- The game time is: " << GAME_TIME <<" seconds." << endl;
+	cout << "\t" << "\t" << "3- The game time is: " << playingTimeInMinutes <<" minutes." << endl;
 	cout << "\t" << "\t" << "4- The game can be stopped in 2 ways:" << endl;
-	cout << "\t" << "\t" << "5-1) The player press \"q\" to quit the game, OR..." << endl;
-	cout << "\t" << "\t" << "5-2) The game stop automatically with a message when the timer exceeded." << endl;
-	cout << "\t" << "\t" << "6- Press \"ENTER\" to validate a command." << endl;
+	cout << "\t" << "\t" << "4-1) The player press \"q\" to quit the game, OR..." << endl;
+	cout << "\t" << "\t" << "4-2) The game stop automatically with a message when the timer exceeded." << endl;
+	cout << "\t" << "\t" << "5- Press \"ENTER\" to validate a command." << endl;
 	cout << "\t" << "=== Example ===" << endl;
 	cout << "\t" << "1[H] - 12[A] - 8[L] - 5[L] - 9[O]";
 	cout << "=> To select \"HALLO\", give \"1 12 8 5 9\", and press ENTER." << endl;
@@ -168,13 +169,13 @@ vector<string> getPlayerInput(void)
 }
 
 /***************************************************************************************************/
-void displayWinner(Player* winner)
+void displayWinner(Player* m_winner)
 {
 	addNewEmptyLine();
-	if (winner != NULL)
+	if (m_winner != NULL)
 	{
-		cout << "\t" << "Congratulations : The winner of the game is";
-		cout << "\t" << "\" " << winner->name << " \"" << ", with the score: " << winner->score << endl;
+		cout << "\t" << "Congratulations : The m_winner of the game is";
+		cout << "\t" << "\" " << m_winner->name << " \"" << ", with the score: " << m_winner->score << endl;
 	}
 	else
 	{
@@ -194,15 +195,31 @@ void displayChangePlayerName(void)
 	cout << "\t" << "Oops!! A player with the same name already exists. Please enter a different name." << endl;
 }
 
+/***************************************************************************************************/
+void displayGameTime(void)
+{
+	string opt;
 
+	addNewEmptyLine();
+	cout << "\t" << "The actual playing time is " << playingTimeInMinutes << " minute(s)." << endl;
+	cout << "\t" << "Press \"t\" to change this time, otherwise this step will be skipped ." << endl;
+	cout << "\t" << ">>";
+	getline(cin, opt);
+
+	if (opt == "t")
+	{
+		updateGameTime();
+		cout << "\t" << "The actual playing time is *now* " << playingTimeInMinutes << " minute(s)." << endl;
+	}
+}
 
 // STATIC FUNCTIONS
 
 /***************************************************************************************************/
 static void runTimer(bool* timerOff)
 {
-	int gameTime = GAME_TIME;
-	while ((gameTime-- >= 0) && (!(*timerOff))) {
+	int gameTimeInSec = playingTimeInMinutes * 60;
+	while ((gameTimeInSec-- >= 0) && (!(*timerOff))) {
 		Sleep(1000);
 	}
 	cout << endl << "\t" << "Timer off !! >> Please press \'ENTER\'" << endl;
@@ -213,4 +230,17 @@ static void runTimer(bool* timerOff)
 static void addNewEmptyLine(void)
 {
 	cout << "\n" << endl;
+}
+
+/***************************************************************************************************/
+static void updateGameTime(void)
+{
+	addNewEmptyLine();
+	string strValue;
+	int m_nbrOfPlayer = 0;
+	cout << "\t" << "Enter the new playing time in minutes..." << endl;
+	cout << "\t" << ">>";
+	getline(cin, strValue);
+	playingTimeInMinutes = stoi(strValue);
+	cout << "\t" << "Playing time successfully updated." << endl;
 }

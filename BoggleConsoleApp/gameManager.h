@@ -13,10 +13,11 @@ private:
 	std::vector<InputString> play(void);
 	void setGameWinner();
 	bool nameExists(std::string newName);
+	void setGameTime(int timeInMinute);
+	int getGameTime(void);
 private:
-	std::map<char, std::vector<std::string>> wordsDict;
-	int nbrOfPlayer;
-	Player *winner;
-	std::vector<Player> gamePlayers;
-	int gameTimeMinute;
+	std::map<char, std::vector<std::string>> m_wordsDict;
+	int m_nbrOfPlayer;
+	Player *m_winner;
+	std::vector<Player> m_gamePlayers;
 };

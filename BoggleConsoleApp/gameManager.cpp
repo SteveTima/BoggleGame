@@ -7,30 +7,30 @@ using namespace std;
 /***************************************************************************************************/
 GameManager::GameManager()
 {
-	nbrOfPlayer = 0;
-	gameTimeMinute = 0;
-	winner = NULL;
-	wordsDict = createEmptyDictionary();
+	m_nbrOfPlayer = 0;
+	m_winner = NULL;
+	m_wordsDict = createEmptyDictionary();
 }
 
 /***************************************************************************************************/
 bool GameManager::initGame(void)
 {
-	string wordsDictPath = getWordsDictDatafilePath();
-	return fillDictionary(wordsDictPath, wordsDict);
+	string m_wordsDictPath = getWordsDictDatafilePath();
+	return fillDictionary(m_wordsDictPath, m_wordsDict);
 }
 
 /***************************************************************************************************/
 void GameManager::startGame(void)
 {
 	displayGameHeader();
-	nbrOfPlayer = getNbrOfPlayer();
-	if (nbrOfPlayer <= 0)
+	displayGameTime();
+	m_nbrOfPlayer = getNbrOfPlayer();
+	if (m_nbrOfPlayer <= 0)
 	{
 		return;
 	}
 
-	for (int i = 0; i < nbrOfPlayer; i++)
+	for (int i = 0; i < m_nbrOfPlayer; i++)
 	{
 		Player newPlayer = Player();
 
@@ -42,22 +42,22 @@ void GameManager::startGame(void)
 		
 		if (!isPlayerReady())
 		{
-			gamePlayers.push_back(newPlayer);
+			m_gamePlayers.push_back(newPlayer);
 			continue; // the player exit the game
 		}
 		newPlayer.playerWords = play();
-		newPlayer.score = getScore(newPlayer.playerWords, wordsDict);
-		gamePlayers.push_back(newPlayer);
+		newPlayer.score = getScore(newPlayer.playerWords, m_wordsDict);
+		m_gamePlayers.push_back(newPlayer);
 	}
 }
 
 /***************************************************************************************************/
 bool GameManager::nameExists(string newName)
 {
-	int const actualPlayerLen = (int) gamePlayers.size();
+	int const actualPlayerLen = (int) m_gamePlayers.size();
 	for (int i = 0; i < actualPlayerLen; i++)
 	{
-		if (gamePlayers[i].name == newName)
+		if (m_gamePlayers[i].name == newName)
 		{
 			displayChangePlayerName();
 			return  true;
@@ -90,23 +90,24 @@ vector<InputString> GameManager::play(void)
 void GameManager::stopGame(void)
 {
 	setGameWinner();
-	displayWinner(winner);
+	displayWinner(m_winner);
 	displayExitGameTxt();
 }
 
 /***************************************************************************************************/
 void GameManager::setGameWinner()
 {
-	winner = &gamePlayers[0];
-	for (int i = 1; i < nbrOfPlayer; i++)
+	m_winner = &m_gamePlayers[0];
+	for (int i = 1; i < m_nbrOfPlayer; i++)
 	{
-		if (gamePlayers[i].score > winner->score)
+		if (m_gamePlayers[i].score > m_winner->score)
 		{
-			winner = &gamePlayers[i];
+			m_winner = &m_gamePlayers[i];
 		}
 	}
-	if (winner->score == 0)
+	if (m_winner->score == 0)
 	{
-		winner = NULL;
+		m_winner = NULL;
 	}
 }
+
