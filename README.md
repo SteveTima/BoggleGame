@@ -4,7 +4,7 @@ This is a C++ implementation of the game "Boggle".
 
 For this game two versions have been implemented: 
     - a console version located in the directory "BoggleConsoleApp"
-    - a graphic version located in the directory "BoggleGuiApp" (coming soon...)
+    - a graphic version located in the directory "BoggleGuiApp"
 
 For the graphic version the framework "Qt" is used for creating graphical user interfaces.
 
