@@ -6,7 +6,7 @@ The purpose of this script is to filter from the visual studio project folder al
 that the user need to create a installation package like MSI package. 
 
 This script creates a deployement directory with the necessary Qt files and 
-resources to run the Boggle Game Qt application.
+resources to run the \'gui\' application of Boggle Game.
 
 For this task, the script uses a deployment tool for windows called: windeployqt.
 
