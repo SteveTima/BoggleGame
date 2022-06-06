@@ -17,6 +17,7 @@ int main()
 	else
 	{
 		cout << "Failed to load " << getWordsDictDatafilePath() << endl;
+		cin.get();
 	}
 	return 0;
 }
