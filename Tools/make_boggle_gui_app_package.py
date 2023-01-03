@@ -12,46 +12,16 @@ For this task, the script uses a deployment tool for windows called: windeployqt
 
 """
 
-import sys
 import os
 import shutil
+import argparse
 
-def parse_script_arguments(script_args):
-    ARCH_OPT = ["x64", "x86"]
-    QT_OPT = ["-qtdir"]
-    SCRIPT_OPTIONS = [ARCH_OPT, QT_OPT]
-    NBR_OF_ARGS_NEEDED = 4
-    help_opt = False
-    parsing_successfull = True
-    prog_architectur = ""
-    qt_directory = ""
-    if (len(script_args) == 1) or ((len(script_args) == 2) and (script_args[1] == "-h" or script_args[1] == "-help")):
-        help_opt = True
-    elif len(script_args) == NBR_OF_ARGS_NEEDED:
-        i = 0
-        while i < NBR_OF_ARGS_NEEDED:
-            if i == 0:
-                pass # script_args[0]: ignore script programm name
-            elif script_args[i] in SCRIPT_OPTIONS[0]:
-                prog_architectur = script_args[i]
-            elif script_args[i] in SCRIPT_OPTIONS[1] and (i+1) < NBR_OF_ARGS_NEEDED:
-                i += 1 # go to the next arg
-                qt_directory = script_args[i]
-            else:
-                print('--error-- wrong argument')
-                parsing_successfull = False
-                break
-            i+=1
-    else:
-        print('--error-- bad use of the script')
-        parsing_successfull = False
-    return [help_opt, parsing_successfull, prog_architectur, qt_directory]
-
-def display_script_help():
-    print('usage: make_boggle_gui_app_package.py [-h] \'ARCHITECTURE\' -qtdir \'QT_DIRECTORY\'\n')
-    print('-h, -help             show this help message and exit')
-    print('ARCHITECTURE          \'x64\' for 64 bit architecture or \'x86\' for 32 bit architecture')
-    print('-qtdir QT_DIRECTORY   Qt intsllation path that has a subdirectory \'bin\', example: C:\Qt\V5.15.2\msvc2015_64')
+parser = argparse.ArgumentParser(prog='make_boggle_gui_app_package', 
+                                description="This script creates a deployement directory with the necessary Qt files and \
+                                                resources to run the \'gui\' application of Boggle Game")
+parser.add_argument('arch', choices=['x64', 'x86'],  help='Enter \'x64\' for 64 bit architectur and \'x86\' for 32 bit architectur')
+parser.add_argument('--qtdir', required=True, help='Qt intsllation path that has a subdirectory \'bin\', example: C:\Qt\V5.15.2\msvc2015_64')
+args = parser.parse_args()
     
 
 class BoggleGuiPackage:
@@ -125,18 +95,7 @@ class BoggleGuiPackage:
 if __name__ == "__main__":
 
     print('=== script starts... ===')
-
-    help, parse_succeeded, arch, qtDir = parse_script_arguments(sys.argv)
-    if help == True:
-        display_script_help()
-        print('=== script finisched successfully. ===')
-        exit(0)
-    if not parse_succeeded:
-        print('--message-- Type "-h" or "-help" for more information.')
-        print('=== script finisched with error(s). ===')
-        exit(0)
-
-    myPackage = BoggleGuiPackage(arch, qtDir)
+    myPackage = BoggleGuiPackage(args.arch, args.qtdir)
     if myPackage.check_init_data_values() == False:
         print('=== script finisched with error(s). ===')
         exit(0)
